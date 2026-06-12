@@ -10,6 +10,19 @@
 </head>
 <body>
 
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-panel loader-left"></div>
+  <div class="loader-panel loader-right"></div>
+  <div class="loader-content">
+    <div class="loader-logo">Code<span>Forge</span></div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loaderBar"></div>
+    </div>
+    <div class="loader-percent" id="loaderPercent">0%</div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Code<span>Forge</span></a>
@@ -304,6 +317,34 @@
   </div>
   <div class="footer-copy">© 2026 CodeForge. All rights reserved.</div>
 </footer>
+
+<script>
+  const loader = document.getElementById('loader');
+  const bar = document.getElementById('loaderBar');
+  const percent = document.getElementById('loaderPercent');
+  let progress = 0;
+
+  const interval = setInterval(() => {
+    progress += Math.random() * 12 + 4;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      bar.style.width = '100%';
+      percent.textContent = '100%';
+
+      setTimeout(() => {
+        loader.classList.add('open');
+        setTimeout(() => {
+          loader.style.pointerEvents = 'none';
+          loader.style.display = 'none';
+        }, 1000);
+      }, 300);
+    } else {
+      bar.style.width = progress + '%';
+      percent.textContent = Math.floor(progress) + '%';
+    }
+  }, 90);
+</script>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
